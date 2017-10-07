@@ -7,6 +7,7 @@
 
 typedef enum flags { USE_DPCM=0x01, USE_STEREO=0x04, USE_16BIT=0x10 } flag_t;
 
+
 typedef struct {
   uint8_t  version;
   uint8_t  header_size;
@@ -15,29 +16,10 @@ typedef struct {
   uint16_t size;
 } AudHeader;
 
-int read_aud_header(FILE* file, AudHeader* header) {
-  int r = 0;
-  uint8_t* mab   = malloc(3);
-  uint8_t sol[] = { 's', 'o', 'l' };
+int read_aud_header(FILE*, AudHeader*);
 
-  fscanf(file, "%hhu", &header->version);
-  fscanf(file, "%hhu", &header->header_size);
-  fscanf(file, "%hhu", sol);
-  fscanf(file, "%o", &header->sample_rate);
-  fscanf(file, "%hhu", &header->flags);
-  fscanf(file, "%o", &header->size);
+int read_aud(FILE*, FILE*, AudHeader*);
 
-  if (memcpy(mab,sol,3) != 0) {
-    r = -1;
-  }
+int read_8bit_adpcm(FILE*, FILE*, AudHeader*);
 
-  free(mab);
-
-  return r;
-}
-
-int read_aud(FILE* in, FILE* out, AudHeader* header) {
-  
-}
-  
 #endif
