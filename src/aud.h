@@ -7,7 +7,6 @@
 
 typedef enum flags { USE_DPCM=0x01, USE_STEREO=0x04, USE_16BIT=0x10 } flag_t;
 
-
 typedef struct {
   uint8_t  version;
   uint8_t  header_size;
@@ -21,5 +20,7 @@ int read_aud_header(FILE*, AudHeader*);
 int read_aud(FILE*, FILE*, AudHeader*);
 
 int read_8bit_adpcm(FILE*, FILE*, AudHeader*);
+
+int read_16bit_adpcm(FILE*, FILE*, AudHeader*);
 
 #endif
